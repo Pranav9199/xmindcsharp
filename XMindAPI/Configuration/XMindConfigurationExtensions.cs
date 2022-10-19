@@ -81,8 +81,14 @@ namespace XMindAPI
                 {
                     var fileDir = Path.Combine(basePath, fileToken.Value);
                     var fullPath = Path.Combine(fileDir, fileToken.Key);
-
-                    zip.AddFile(ZipStorer.Compression.Deflate, fullPath, fileToken.Key, string.Empty);
+                    if (fileToken.Value == string.Empty)
+                    {
+                        zip.AddFile(ZipStorer.Compression.Deflate, fullPath, fileToken.Key, string.Empty);
+                    }
+                    else
+                    {
+                        zip.AddDirectory(ZipStorer.Compression.Deflate, fileDir, null);
+                    }
                     File.Delete(fullPath);
                     if (!string.IsNullOrEmpty(fileToken.Value) && Directory.Exists(fileDir))
                     {

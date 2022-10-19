@@ -101,6 +101,12 @@ namespace XMindAPI.Core.Builders
                     new XAttribute("media-type", "")
                 ));
 
+            rootElement.Add(
+                new XElement(manifestFileEntryToken,
+                    new XAttribute("full-path", "attachments/"),
+                    new XAttribute("media-type", "")
+                ));
+
             manifest.Add(rootElement);
             return manifest;
         }

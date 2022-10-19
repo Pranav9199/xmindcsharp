@@ -192,6 +192,49 @@ namespace XMindAPI.Zip
             AddStream(_method, _filenameInZip, stream, File.GetLastWriteTime(_pathname), _comment);
             stream.Close();
         }
+
+        /// <summary>
+        /// Add full contents of a directory into the Zip storage
+        /// </summary>
+        /// <param name="_method">Compression method</param>
+        /// <param name="_pathname">Full path of directory to add to Zip storage</param>
+        /// <param name="_pathnameInZip">Path name as desired in Zip directory</param>
+        /// <param name="_comment">Comment for stored directory</param>
+        public void AddDirectory(Compression _method, string _pathname, string _pathnameInZip, string _comment = null)
+        {
+            if (Access == FileAccess.Read)
+                throw new InvalidOperationException("Writing is not allowed");
+
+            string foldername;
+            int pos = _pathname.LastIndexOf(Path.DirectorySeparatorChar);
+            string separator = Path.DirectorySeparatorChar.ToString();
+
+            if (pos >= 0)
+                foldername = _pathname.Remove(0, pos + 1);
+            else
+                foldername = _pathname;
+
+            if (!string.IsNullOrEmpty(_pathnameInZip))
+                foldername = _pathnameInZip + foldername;
+
+            if (!foldername.EndsWith(separator, StringComparison.CurrentCulture))
+                foldername = foldername + separator;
+
+            // this.AddStream(_method, foldername, null, File.GetLastWriteTime(_pathname), _comment);
+
+            // Process the list of files found in the directory.
+            string[] fileEntries = Directory.GetFiles(_pathname);
+
+            foreach (string fileName in fileEntries)
+                this.AddFile(_method, fileName, foldername + Path.GetFileName(fileName), "");
+
+            // Recurse into subdirectories of this directory.
+            string[] subdirectoryEntries = Directory.GetDirectories(_pathname);
+
+            foreach (string subdirectory in subdirectoryEntries)
+                this.AddDirectory(_method, subdirectory, foldername, "");
+        }
+
         /// <summary>
         /// Add full contents of a stream into the Zip storage
         /// </summary>
