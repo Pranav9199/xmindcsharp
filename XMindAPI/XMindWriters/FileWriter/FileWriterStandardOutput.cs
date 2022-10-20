@@ -4,6 +4,8 @@ namespace XMindAPI.Writers
     {
         Manifest,
         Meta,
-        Content
+        Content,
+        Attachments
+
     }
 }

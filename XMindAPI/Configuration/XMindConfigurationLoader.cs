@@ -56,7 +56,8 @@ namespace XMindAPI.Configuration
             #nullable disable
             [XMindConfiguration.ManifestLabel] = XMindConfigCollection[XMindConfiguration.ManifestLabel],
             [XMindConfiguration.MetaLabel] = XMindConfigCollection[XMindConfiguration.MetaLabel],
-            [XMindConfiguration.ContentLabel] = XMindConfigCollection[XMindConfiguration.ContentLabel]
+            [XMindConfiguration.ContentLabel] = XMindConfigCollection[XMindConfiguration.ContentLabel],
+            [XMindConfiguration.AttachmentsLabel] = XMindConfigCollection[XMindConfiguration.AttachmentsLabel]
         };
         private XMindConfigurationLoader LoadConfigurationFile()
         {

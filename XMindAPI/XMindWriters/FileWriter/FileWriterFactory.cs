@@ -18,7 +18,8 @@ namespace XMindAPI.Writers
             var standardOutputs = new List<FileWriterStandardOutput>{
                 FileWriterStandardOutput.Manifest,
                 FileWriterStandardOutput.Meta,
-                FileWriterStandardOutput.Content
+                FileWriterStandardOutput.Content,
+                FileWriterStandardOutput.Attachments
             };
             return standardOutputs.Select(o => CreateStandardWriterFactoryMethod(o, basePath)).ToList();
         }
@@ -40,6 +41,7 @@ namespace XMindAPI.Writers
                 FileWriterStandardOutput.Manifest => xMindSettings[ManifestLabel],
                 FileWriterStandardOutput.Meta => xMindSettings[MetaLabel],
                 FileWriterStandardOutput.Content => xMindSettings[ContentLabel],
+                FileWriterStandardOutput.Attachments => xMindSettings[AttachmentsLabel],
                 _ => throw new InvalidOperationException(
                     "CreateWriterFactoryMethod haven't assigned writer")
             };

@@ -71,6 +71,7 @@ namespace simple
             var book = new XMindConfiguration()
                 .WithFileWriter(basePath, zip: true)
                 .CreateWorkBook(bookName);
+            
             var sheet = book.GetPrimarySheet();
             var rootTopic = sheet.GetRootTopic();
             rootTopic.SetTitle("RootTopic");

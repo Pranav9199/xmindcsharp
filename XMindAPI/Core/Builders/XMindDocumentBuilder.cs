@@ -111,6 +111,21 @@ namespace XMindAPI.Core.Builders
             return manifest;
         }
 
+        private XDocument AddImageToManifestFile(string imageName, string mediaType = "image/jpeg")
+        {
+            var settings = EnsureXMindSettings();
+            var manifestNamespace = XNamespace.Get(settings["manifestNamespace"]);
+            var manifestFileEntryToken = manifestNamespace + "file-entry";
+            var manifestFile = ManifestFile;
+            manifestFile.Root.Add(
+                new XElement(manifestFileEntryToken,
+                    new XAttribute("full-path", "attachments/"+ imageName),
+                    new XAttribute("media-type", mediaType)
+                ));
+
+            return manifestFile;    
+        }
+
         private XDocument CreateDefaultContentFile()
         {
             var settings = EnsureXMindSettings();

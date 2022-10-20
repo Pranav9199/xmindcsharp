@@ -14,6 +14,7 @@ namespace XMindAPI
         public const string ManifestLabel = "output:definition:manifest";
         public const string MetaLabel = "output:definition:meta";
         public const string ContentLabel = "output:definition:content";
+        public const string AttachmentsLabel = "output:definition:attachments";
 
         /// <summary>
         /// Configures the write that generated files  will be emitted to.

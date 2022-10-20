@@ -197,8 +197,6 @@ namespace XMindAPI.Models
 
         public void AddImage(string filename)
         {
-            //WriteToStorage();
-
             var settings = EnsureXMindSettings();
             Implementation.Add(
                 new XElement(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_IMG,
