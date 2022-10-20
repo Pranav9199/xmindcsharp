@@ -3,7 +3,7 @@ using XMindAPI.Models;
 
 namespace XMindAPI.Core
 {
-    public interface ITopic : IAdaptable, ITitled, ILabeled, IIdentifiable, ITopicComponent, IRelationshipEnd, IHyperLinked
+    public interface ITopic : IAdaptable, ITitled, ILabeled, INote, IImage, IIdentifiable, ITopicComponent, IRelationshipEnd, IHyperLinked
     {
 
         TopicType Type { get; set; }

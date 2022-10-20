@@ -1,39 +1,45 @@
 {
-    "namespace": "urn:xmind:xmap:xmlns:meta:2.0",
-    "manifestNamespace": "urn:xmind:xmap:xmlns:manifest:1.0",
-    "contentNamespace": "urn:xmind:xmap:xmlns:content:2.0",
-    "metaNamespace": "urn:xmind:xmap:xmlns:meta:2.0",
-    "xlinkNamespace": "http://www.w3.org/1999/xlink",
-    "standardContentNamespaces": {
-        "xsl": "http://www.w3.org/1999/XSL/Format",
-        "svg": "http://www.w3.org/2000/svg",
-        "xhtml": "http://www.w3.org/1999/xhtml"
+  "namespace": "urn:xmind:xmap:xmlns:meta:2.0",
+  "manifestNamespace": "urn:xmind:xmap:xmlns:manifest:1.0",
+  "contentNamespace": "urn:xmind:xmap:xmlns:content:2.0",
+  "metaNamespace": "urn:xmind:xmap:xmlns:meta:2.0",
+  "xlinkNamespace": "http://www.w3.org/1999/xlink",
+  "standardContentNamespaces": {
+    "xsl": "http://www.w3.org/1999/XSL/Format",
+    "svg": "http://www.w3.org/2000/svg",
+    "xhtml": "http://www.w3.org/1999/xhtml"
+  },
+  "output": {
+    "definition": {
+      "manifest": "manifest.xml",
+      "meta": "meta.xml",
+      "content": "content.xml",
+      "default": "default",
+      "attachments": "attachments"
     },
-    "output": {
-        "definition":{
-            "manifest": "manifest.xml",
-            "meta": "meta.xml",
-            "content": "content.xml",
-            "default": "default"
-        },
-        "base": "xmind-output",
-        "files": [
-            {
-                "name": "manifest.xml",
-                "location": "META-INF"
-            },
-            {
-                "name": "meta.xml",
-                "location": ""
-            },
-            {
-                "name": "content.xml",
-                "location": ""
-            },
-            {
-                "name": "default",
-                "location": ""
-            }
-        ]
-    }
+    "base": "xmind-output",
+    "files": [
+      {
+        "name": "manifest.xml",
+        "location": "META-INF"
+      },
+      {
+        "name": "meta.xml",
+        "location": ""
+      },
+      {
+        "name": "content.xml",
+        "location": ""
+      },
+      {
+        "name": "default",
+        "location": ""
+      },
+      {
+        "name": "attachments",
+        "location": "attachments"
+      }
+
+    ]
+  }
 }

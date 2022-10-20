@@ -1,8 +1,11 @@
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using XMindAPI.Configuration;
 using XMindAPI.Core;
 using XMindAPI.Core.DOM;
 using XMindAPI.Infrastructure.Logging;
@@ -22,6 +25,7 @@ namespace XMindAPI.Models
             OwnedWorkbook = book;
             Implementation = DOMUtils.AddIdAttribute(implementation);
         }
+        protected readonly IConfiguration? xMindSettings = XMindConfigurationLoader.Configuration.XMindConfigCollection;
 
         public IWorkbook OwnedWorkbook { get; set; }
         public XElement Implementation { get; }
@@ -165,6 +169,55 @@ namespace XMindAPI.Models
         public T GetAdapter<T>(Type adapter)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddNotes(List<KeyValuePair<string, string>> notesKeyValuePair)
+        {
+            var settings = EnsureXMindSettings();
+            DOMUtils.EnsureChildElement(Implementation, TAG_NOTES);
+            var labelsTag = Implementation.Element(TAG_NOTES);
+            var xhtmlbody = new XElement(TAG_HTML,
+                notesKeyValuePair.Select(x => new XElement(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_P, x.Key + " : " + x.Value)));
+            labelsTag.Add(xhtmlbody);
+            var xhtmlplain = new XElement(TAG_PLAIN,
+                notesKeyValuePair.Select(x => (x.Key + " : " + x.Value + "\n")));
+            labelsTag.Add(xhtmlplain);
+        }
+
+        private IConfiguration EnsureXMindSettings()
+        {
+            if (xMindSettings is null)
+            {
+                const string errorMessage = "XMindSettings are not provided";
+                Logger.Log.Error(errorMessage);
+                throw new InvalidOperationException(errorMessage);
+            }
+            return xMindSettings;
+        }
+
+        public void AddImage(string filename)
+        {
+            //WriteToStorage();
+
+            var settings = EnsureXMindSettings();
+            Implementation.Add(
+                new XElement(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_IMG,
+                new XAttribute(ATTR_ALIGN, VAL_TOP),
+                new XAttribute(XNamespace.Get(settings["standardContentNamespaces:svg"]) + ATTR_HEIGHT, "85"),
+                new XAttribute(XNamespace.Get(settings["standardContentNamespaces:svg"]) + ATTR_WIDTH, "85"),
+                new XAttribute(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + ATTR_SRC, "xap:attachments/"+ filename))
+                );
+
+
+            //DOMUtils.EnsureChildElement(Implementation, /*settings["standardContentNamespaces:xhtml"] + */"img");
+
+            //var htmlTag = Implementation.Element(/*XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + */"img");
+            //labelsTag.Attribute("testattribute");
+            //htmlTag.Add(new XAttribute(XNamespace.Get(settings["standardContentNamespaces:xhtml"])+"testtt", filename));
+            //DOMUtils.EnsureChildElement(Implementation, TAG_XHTML);
+            //var labelsTag = Implementation.Attribute("test");
+
+            //DOMUtils.CreateElement(Implementation, XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_P, filename);
         }
     }
 }

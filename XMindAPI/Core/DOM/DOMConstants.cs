@@ -40,7 +40,7 @@ namespace XMindAPI.Core.DOM
         public const string ATTR_FONT_WEIGHT = "fo:font-weight"; //$NON-NLS-1$
         public const string ATTR_FULL_PATH = "full-path"; //$NON-NLS-1$
         public const string ATTR_GRADIENT_COLOR = "color-gradient";//$NON-NLS-1$
-        public const string ATTR_HEIGHT = "svg:height"; //$NON-NLS-1$
+        public const string ATTR_HEIGHT = "height"; //$NON-NLS-1$
         public const string ATTR_HIDDEN = "hidden"; //$NON-NLS-1$
         public const string ATTR_HREF = "xlink:href"; //$NON-NLS-1$
         public const string ATTR_ID = "id"; //$NON-NLS-1$
@@ -87,7 +87,7 @@ namespace XMindAPI.Core.DOM
         public const string ATTR_SINGLETON = "singleton"; //$NON-NLS-1$
         public const string ATTR_SPACING_MAJOR = "spacing-major"; //$NON-NLS-1$
         public const string ATTR_SPACING_MINOR = "spacing-minor"; //$NON-NLS-1$
-        public const string ATTR_SRC = "xhtml:src"; //$NON-NLS-1$
+        public const string ATTR_SRC = "src"; //$NON-NLS-1$
         public const string ATTR_STRUCTURE_CLASS = "structure-class"; //$NON-NLS-1$
         public const string ATTR_STYLE_FAMILY = "style-family"; //$NON-NLS-1$
         public const string ATTR_STYLE_ID = "style-id"; //$NON-NLS-1$
@@ -101,7 +101,7 @@ namespace XMindAPI.Core.DOM
         public const string ATTR_TYPE = "type"; //$NON-NLS-1$
         public const string ATTR_VERSION = "version"; //$NON-NLS-1$
         public const string ATTR_VISIBILITY = "visibility"; //$NON-NLS-1$
-        public const string ATTR_WIDTH = "svg:width"; //$NON-NLS-1$
+        public const string ATTR_WIDTH = "width"; //$NON-NLS-1$
         public const string ATTR_X = "svg:x"; //$NON-NLS-1$
         public const string ATTR_Y = "svg:y"; //$NON-NLS-1$
         public const string PASSWORD_HINT = "password-hint"; //$NON-NLS-1$
@@ -134,7 +134,7 @@ namespace XMindAPI.Core.DOM
         public const string TAG_EXTENSION = "extension"; //$NON-NLS-1$
         public const string TAG_EXTENSIONS = "extensions"; //$NON-NLS-1$
         public const string TAG_FILE_ENTRY = "file-entry"; //$NON-NLS-1$
-        public const string TAG_IMG = "xhtml:img"; //$NON-NLS-1$
+        public const string TAG_IMG = "img"; //$NON-NLS-1$
         public const string TAG_INFO_ITEM = "info-item"; //$NON-NLS-1$
         public const string TAG_INFO_ITEMS = "info-items"; //$NON-NLS-1$
         public const string TAG_KEY_DERIVATION = "key-derivation"; //$NON-NLS-1$
@@ -152,8 +152,11 @@ namespace XMindAPI.Core.DOM
         public const string TAG_MASTER_STYLES = "master-styles"; //$NON-NLS-1$
         public const string TAG_META = "meta"; //$NON-NLS-1$
         public const string TAG_NOTES = "notes"; //$NON-NLS-1$
+        public const string TAG_HTML = "html"; //$NON-NLS-1$
+        public const string TAG_PLAIN = "plain"; //$NON-NLS-1$
+        public const string TAG_XHTML = "xhtml"; //$NON-NLS-1$
         public const string TAG_NUMBERING = "numbering"; //$NON-NLS-1$
-        public const string TAG_P = "xhtml:p"; //$NON-NLS-1$
+        public const string TAG_P = "p"; //$NON-NLS-1$
         public const string TAG_POSITION = "position"; //$NON-NLS-1$
         public const string TAG_PREFIX = "prefix"; //$NON-NLS-1$
         public const string TAG_PROPERTIES = "properties"; //$NON-NLS-1$

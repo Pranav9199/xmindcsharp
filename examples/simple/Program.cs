@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Tracing;
 using System.Text;
 using XMindAPI;
+using System.Collections.Generic;
 
 namespace simple
 {
@@ -15,7 +16,7 @@ namespace simple
 
         public static TextWriter Out { get; set; } = Console.Out;
 
-        static async Task Main(string demo = "file")
+        static async Task Main(string demo = "file-2")
         {
             var serviceProvider = new ServiceCollection()
                 .AddLogging(configure => configure.AddConsole())
@@ -64,7 +65,7 @@ namespace simple
         private static async Task SaveWorkBookToFileSystem_Example2()
         {
             // string basePath = Path.Combine(Path.GetTempPath(), "xmind-test");
-            string basePath = Path.Combine("xmind-test");
+            string basePath = Path.Combine("xmind-test\\testtr");
             var bookName = "test.xmind";
             Logger.LogInformation(default(EventId), $"Base path: ${Path.Combine(basePath, bookName)}");
             var book = new XMindConfiguration()
@@ -73,10 +74,19 @@ namespace simple
             var sheet = book.GetPrimarySheet();
             var rootTopic = sheet.GetRootTopic();
             rootTopic.SetTitle("RootTopic");
+            rootTopic.AddImage("23013.jpg");
             var newTopic = book.CreateTopic("ChildTopic");
             rootTopic.Add(newTopic);
             newTopic.IsFolded = true;
             newTopic.HyperLink ="http://google.com";
+            newTopic.AddLabel("notesss");
+            var myList = new List<KeyValuePair<string, string>>();
+
+            // adding elements
+            myList.Add(new KeyValuePair<string, string>("Laptop", "asdasdasd"));
+            myList.Add(new KeyValuePair<string, string>("Desktop", "adczxvbtryn"));
+            myList.Add(new KeyValuePair<string, string>("Tablet", "gggggggggggggggggg"));
+            newTopic.AddNotes(myList);
             newTopic.AddMarker("priority-1");
             newTopic.AddMarker("task-half");
             var foldedTopic = book.CreateTopic("Folded");
