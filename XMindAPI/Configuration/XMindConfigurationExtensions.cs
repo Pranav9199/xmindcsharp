@@ -27,6 +27,7 @@ namespace XMindAPI
             string? basePath = default,
             bool zip = true)
         {
+            config.Basepath = basePath;
             var result = config
                 .WriteTo.Writers(FileWriterFactory.CreateStandardWriters(basePath))
                 .WriteTo.SetWriterBinding(FileWriterFactory.CreateStandardResolvers());

@@ -20,6 +20,7 @@ namespace XMindAPI
         /// Configures the write that generated files  will be emitted to.
         /// </summary>
         public XMindWriterConfiguration WriteTo { get; internal set; }
+        public String Basepath { get; internal set; }
 
         // public string WorkbookName { get; internal set;}
         public XMindConfiguration()

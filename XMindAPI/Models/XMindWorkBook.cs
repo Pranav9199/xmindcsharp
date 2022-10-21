@@ -3,6 +3,7 @@ using Ardalis.GuardClauses;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -113,6 +114,11 @@ namespace XMindAPI.Models
             var metaFileName = _xMindSettings[XMindConfiguration.MetaLabel];
             var contentFileName = _xMindSettings[XMindConfiguration.ContentLabel];
 
+            var attachmentPath = Path.Combine(_bookConfiguration.Basepath, "attachments");
+            if(Directory.Exists(attachmentPath))
+            {
+                AddImageToManifest(attachmentPath, _documentBuilder.ManifestFile);
+            }
             var files = new Dictionary<string, XDocument>(3)
             {
                 [metaFileName] = _documentBuilder.MetaFile,
@@ -160,6 +166,33 @@ namespace XMindAPI.Models
                 Logger.Log.RequestStop(requestId);
             }
         }
+        public static void AddImageToManifest(string targetDirectory, XDocument manifest)
+        {
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            var settings = XMindConfigurationLoader.Configuration.XMindConfigCollection;
+            var manifestNamespace = XNamespace.Get(settings["manifestNamespace"]);
+            var manifestFileEntryToken = manifestNamespace + "file-entry";
+            foreach(var fileName in fileEntries)
+            manifest.Root.Add(
+                new XElement(manifestFileEntryToken,
+                    new XAttribute("full-path", "attachments/"+ Path.GetFileName(fileName)),
+                    new XAttribute("media-type", "image/jpeg")
+                ));
+        }
+        //    public static List<String> ProcessDirectory(string targetDirectory, XDocument manifest)
+        //{
+        //    // Process the list of files found in the directory.
+            
+        //    //foreach (string fileName in fileEntries)
+        //    //{
+
+        //    //}
+        //    //    var asd = Directory.EnumerateFiles(targetDirectory);
+        //    // Recurse into subdirectories of this directory.
+        //    //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+        //    //foreach (string subdirectory in subdirectoryEntries)
+        //    //    ProcessDirectory(subdirectory);
+        //}
 
         public override IRelationship CreateRelationship(
             IRelationshipEnd rel1, IRelationshipEnd rel2)
