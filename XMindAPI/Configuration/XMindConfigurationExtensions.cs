@@ -27,6 +27,10 @@ namespace XMindAPI
             string? basePath = default,
             bool zip = true)
         {
+            //if (!Directory.Exists(basePath))
+            //{
+            //    Directory.CreateDirectory(basePath);
+            //}
             config.Basepath = basePath;
             var result = config
                 .WriteTo.Writers(FileWriterFactory.CreateStandardWriters(basePath))
@@ -82,19 +86,32 @@ namespace XMindAPI
                 {
                     var fileDir = Path.Combine(basePath, fileToken.Value);
                     var fullPath = Path.Combine(fileDir, fileToken.Key);
-                    if (fileToken.Value == string.Empty)
+                    if (string.IsNullOrEmpty(fileToken.Value))
                     {
                         zip.AddFile(ZipStorer.Compression.Deflate, fullPath, fileToken.Key, string.Empty);
+                        File.Delete(fullPath);
                     }
                     else
                     {
                         zip.AddDirectory(ZipStorer.Compression.Deflate, fileDir, null);
-                    }
-                    File.Delete(fullPath);
-                    if (!string.IsNullOrEmpty(fileToken.Value) && Directory.Exists(fileDir))
-                    {
+                        
+                        string[] filePaths = Directory.GetFiles(fileDir);
+                        foreach (string filePath in filePaths)
+                        {
+                            File.Delete(filePath);
+                        }
                         Directory.Delete(fileDir);
                     }
+                    //File.Delete(fullPath);
+                    //if (!string.IsNullOrEmpty(fileToken.Value) && Directory.Exists(fileDir))
+                    //{
+                    //    string[] filePaths = Directory.GetFiles(fileDir);
+                    //    foreach (string filePath in filePaths)
+                    //    { 
+                    //        File.Delete(filePath);
+                    //    }
+                    //    Directory.Delete(fileDir);
+                    //}
                 }
             };
         }

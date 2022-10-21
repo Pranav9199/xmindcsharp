@@ -198,8 +198,12 @@ namespace XMindAPI.Models
 
         public void AddImage(byte[] imageBinary, string imageName)
         {
-            var imagePath = Path.Combine(OwnedWorkbook.GetBasePath(), "attachments", imageName);
-            File.WriteAllBytes(imagePath, imageBinary);
+            var imagePath = Path.Combine(OwnedWorkbook.GetBasePath(), "attachments");
+            if (!Directory.Exists(imagePath))
+            {
+                Directory.CreateDirectory(imagePath);
+            }
+            File.WriteAllBytes(Path.Combine(imagePath,imageName), imageBinary);
             var settings = EnsureXMindSettings();
             Implementation.Add(
                 new XElement(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_IMG,

@@ -75,12 +75,15 @@ namespace simple
             var sheet = book.GetPrimarySheet();
             var rootTopic = sheet.GetRootTopic();
             rootTopic.SetTitle("RootTopic");
-            rootTopic.AddImage(null,"23013.jpg");
+            var asd = File.ReadAllBytes("C:\\Users\\PranavB\\Desktop\\attachments\\testt.jpg");
+            var asd2 = File.ReadAllBytes("C:\\Users\\PranavB\\Desktop\\attachments\\test2.jpg");
+            rootTopic.AddImage(asd, "mm1.jpg");
             var newTopic = book.CreateTopic("ChildTopic");
             rootTopic.Add(newTopic);
             newTopic.IsFolded = true;
             newTopic.HyperLink ="http://google.com";
             newTopic.AddLabel("notesss");
+            newTopic.AddImage(asd2, "mm2.jpg");
             var myList = new List<KeyValuePair<string, string>>();
 
             // adding elements
