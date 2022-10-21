@@ -56,6 +56,7 @@ namespace XMindAPI.Core
         /// <seealso cref="Writers.Configuration.XMindWriterConfiguration"/>
         /// </summary>
         Task Save();
+        string GetBasePath();
         IRelationship CreateRelationship(IRelationshipEnd rel1, IRelationshipEnd rel2);
         IRelationship CreateRelationship();
     }

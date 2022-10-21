@@ -4,6 +4,6 @@ namespace XMindAPI.Core
 {
     public interface IImage
     {
-        void AddImage(string filename);
+        void AddImage(byte[] imageBinary,string filename);
     }
 }

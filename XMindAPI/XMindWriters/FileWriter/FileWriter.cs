@@ -44,36 +44,6 @@ namespace XMindAPI.Writers
             await memoryStream.CopyToAsync(fileStream);
             fileStream.Flush(true);
         }
-        public async Task WriteToStorage(byte[] imageString, string file)
-        {
-            Guard.Against.Null(OutputConfig, nameof(OutputConfig));
-            var basePath = OutputConfig.Path;
-            System.IO.File.WriteAllBytes(Path.Combine(basePath, "attachments", file), imageString);
-            //var fileFullName = Path.Combine(basePath, file);
-
-
-            //System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-            //byte[] imagebytes = encoding.GetBytes(imageString);
-
-            ////byte[] buffer = file.ToArray();
-            //MemoryStream memStream = new MemoryStream();
-            //memStream.Write(imagebytes, 0, imagebytes.Length);
-            //var asd = Image.FromStream(memStream);
-
-
-
-            //Guard.Against.Null(OutputConfig, nameof(OutputConfig));
-            //var basePath = OutputConfig.Path;
-            //var fileFullName = Path.Combine(basePath, file);
-            //Directory.CreateDirectory(basePath);
-            //// Logger.Info($"FileWriter.WriteToStorage: writing content to {fileFullName}");
-            //using var memoryStream = new MemoryStream();
-            //using var fileStream = File.Create(fileFullName);
-            ////xmlDocument.Save(memoryStream);
-            //memoryStream.Position = 0;
-            //await memoryStream.CopyToAsync(fileStream);
-            //fileStream.Flush(true);
-        }
 
         public IXMindWriter<FileWriterOutputConfig> SetOutput(IXMindWriterOutputConfig output)
         {

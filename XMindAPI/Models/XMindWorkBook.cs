@@ -103,6 +103,10 @@ namespace XMindAPI.Models
             return base.GetAdapter<T>(adapter);
         }
 
+        public override string GetBasePath()
+        {
+            return _bookConfiguration.Basepath;
+        }
         /// <summary>
         /// Save the current XMind workbook file to disk.
         /// </summary>
@@ -114,7 +118,7 @@ namespace XMindAPI.Models
             var metaFileName = _xMindSettings[XMindConfiguration.MetaLabel];
             var contentFileName = _xMindSettings[XMindConfiguration.ContentLabel];
 
-            var attachmentPath = Path.Combine(_bookConfiguration.Basepath, "attachments");
+            var attachmentPath = Path.Combine(GetBasePath(), "attachments");
             if(Directory.Exists(attachmentPath))
             {
                 AddImageToManifest(attachmentPath, _documentBuilder.ManifestFile);
@@ -170,7 +174,7 @@ namespace XMindAPI.Models
         {
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             var settings = XMindConfigurationLoader.Configuration.XMindConfigCollection;
-            var manifestNamespace = XNamespace.Get(settings["manifestNamespace"]);
+            XNamespace manifestNamespace = XNamespace.Get(settings["manifestNamespace"]);
             var manifestFileEntryToken = manifestNamespace + "file-entry";
             foreach(var fileName in fileEntries)
             manifest.Root.Add(
@@ -179,20 +183,6 @@ namespace XMindAPI.Models
                     new XAttribute("media-type", "image/jpeg")
                 ));
         }
-        //    public static List<String> ProcessDirectory(string targetDirectory, XDocument manifest)
-        //{
-        //    // Process the list of files found in the directory.
-            
-        //    //foreach (string fileName in fileEntries)
-        //    //{
-
-        //    //}
-        //    //    var asd = Directory.EnumerateFiles(targetDirectory);
-        //    // Recurse into subdirectories of this directory.
-        //    //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-        //    //foreach (string subdirectory in subdirectoryEntries)
-        //    //    ProcessDirectory(subdirectory);
-        //}
 
         public override IRelationship CreateRelationship(
             IRelationshipEnd rel1, IRelationshipEnd rel2)

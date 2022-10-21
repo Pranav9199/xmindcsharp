@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -195,27 +196,18 @@ namespace XMindAPI.Models
             return xMindSettings;
         }
 
-        public void AddImage(string filename)
+        public void AddImage(byte[] imageBinary, string imageName)
         {
+            var imagePath = Path.Combine(OwnedWorkbook.GetBasePath(), "attachments", imageName);
+            File.WriteAllBytes(imagePath, imageBinary);
             var settings = EnsureXMindSettings();
             Implementation.Add(
                 new XElement(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_IMG,
                 new XAttribute(ATTR_ALIGN, VAL_TOP),
                 new XAttribute(XNamespace.Get(settings["standardContentNamespaces:svg"]) + ATTR_HEIGHT, "85"),
                 new XAttribute(XNamespace.Get(settings["standardContentNamespaces:svg"]) + ATTR_WIDTH, "85"),
-                new XAttribute(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + ATTR_SRC, "xap:attachments/"+ filename))
+                new XAttribute(XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + ATTR_SRC, "xap:attachments/"+ imageName))
                 );
-
-
-            //DOMUtils.EnsureChildElement(Implementation, /*settings["standardContentNamespaces:xhtml"] + */"img");
-
-            //var htmlTag = Implementation.Element(/*XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + */"img");
-            //labelsTag.Attribute("testattribute");
-            //htmlTag.Add(new XAttribute(XNamespace.Get(settings["standardContentNamespaces:xhtml"])+"testtt", filename));
-            //DOMUtils.EnsureChildElement(Implementation, TAG_XHTML);
-            //var labelsTag = Implementation.Attribute("test");
-
-            //DOMUtils.CreateElement(Implementation, XNamespace.Get(settings["standardContentNamespaces:xhtml"]) + TAG_P, filename);
         }
     }
 }

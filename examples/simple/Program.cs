@@ -75,7 +75,7 @@ namespace simple
             var sheet = book.GetPrimarySheet();
             var rootTopic = sheet.GetRootTopic();
             rootTopic.SetTitle("RootTopic");
-            rootTopic.AddImage("23013.jpg");
+            rootTopic.AddImage(null,"23013.jpg");
             var newTopic = book.CreateTopic("ChildTopic");
             rootTopic.Add(newTopic);
             newTopic.IsFolded = true;

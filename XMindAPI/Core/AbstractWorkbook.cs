@@ -20,6 +20,7 @@ namespace XMindAPI.Core
         public abstract ISheet CreateSheet();
 
         public abstract ITopic CreateTopic();
+        public abstract string GetBasePath();
 
         public abstract object? FindElement(string id, IAdaptable source);
 
@@ -39,7 +40,12 @@ namespace XMindAPI.Core
             return default!;
         }
 
-    public object? GetElementById(string id)
+        //public string GetBasePath()
+        //{
+        //    return GetBasePath();
+        //}
+
+        public object? GetElementById(string id)
     {
         return FindElement(id, this);
     }
